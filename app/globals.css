@@ -3,8 +3,11 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --customOrange: hsl(26, 100%, 55%);
+  --paleOrange: hsl(25, 100%, 94%);
+  --customGray: hsl(219, 9%, 45%);
+  --customLightGray: hsl(223, 64%, 98%);
+  --customDarkBlue: hsl(220, 13%, 13%);
 }
 
 @media (prefers-color-scheme: dark) {
