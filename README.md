@@ -39,3 +39,5 @@ TODOS
 - local storage
 - use router or path for url link
 - add more products
+- fix imports
+- thumbnails regroup them
