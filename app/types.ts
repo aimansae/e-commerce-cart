@@ -9,3 +9,15 @@ export type ProductType = {
   alt: string;
   thumbnails?: string[];
 };
+
+export type ProductSectionType = {
+  onHandleNextProduct: () => void;
+  product: ProductType;
+  counter: number;
+  increaseCounter: () => void;
+  decreaseCounter: () => void;
+  addToCart: () => void;
+};
+export type CartType = {
+  cart: ProductType[];
+};

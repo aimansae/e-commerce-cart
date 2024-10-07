@@ -41,3 +41,6 @@ TODOS
 - add more products
 - fix imports
 - thumbnails regroup them
+  -img sizing
+- accessibility
+  with buttons

@@ -1,11 +1,5 @@
-import Nav from "./components/Nav";
-import ProductSection from "./components/ProductSection";
+import Main from "./components/Main";
 
 export default function Home() {
-  return (
-    <main className="flex min-h-screen flex-col md:mx-auto">
-      <Nav />
-      <ProductSection></ProductSection>
-    </main>
-  );
+  return <Main></Main>;
 }
