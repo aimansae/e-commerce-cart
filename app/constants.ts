@@ -51,7 +51,7 @@ export const products: ProductType[] = [
     discount: 20,
     price: 155.0,
     quantity: 0,
-    imageUrl: "/assets/product-2.png",
+    imageUrl: "/assets/image-product-1.jpg",
     alt: "Red nike",
     description: `These nike sneakers are your perfect casual wear companion.
           Featuring a durable rubber outer sole, they will withstand everything

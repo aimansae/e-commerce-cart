@@ -46,7 +46,7 @@ const Nav = ({ cart }: CartType) => {
 
   return (
     <>
-      <header className="p-3 md:items-center md:border-b md:px-8 md:py-6">
+      <header className="p-3 md:items-center md:border-b">
         <nav className="flex items-center justify-between text-xl md:items-center md:justify-around">
           <div className="flex items-center">
             {/*Burger Menu*/}

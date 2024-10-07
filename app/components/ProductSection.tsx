@@ -4,6 +4,8 @@ import React from "react";
 import cartIcon from "../../public/assets/icon-cart.svg";
 import { content } from "../constants";
 import { ProductSectionType } from "../types";
+import iconNext from "../../public/assets/icon-next.svg";
+import iconPrevious from "../../public/assets/icon-previous.svg";
 
 const ProductSection = ({
   onHandleNextProduct,
@@ -14,6 +16,7 @@ const ProductSection = ({
   addToCart,
 }: ProductSectionType) => {
   const initialPrice = product.price / (1 - product.discount / 100);
+  
   // Handle keyboard interaction
   const handleKeyDown = (e: React.KeyboardEvent, action: () => void) => {
     if (e.key === "Enter" || e.key === " ") {
@@ -32,23 +35,28 @@ const ProductSection = ({
           Next Product
         </button>
       </div>
-      <article className="mx-auto flex w-full flex-col md:mx-auto md:min-h-screen md:max-w-4xl md:flex-row md:items-center md:gap-10">
+      <article className="mx-auto flex w-full flex-col md:mx-auto md:max-w-3xl md:flex-row md:gap-10">
         {/*Product Image*/}
 
-        <figure className="h-[calc(100vh/3)] w-full overflow-hidden md:h-auto md:w-1/2 md:rounded">
+        <figure className="w-full overflow-hidden md:h-auto md:w-1/2 md:rounded">
           <Image
             src={product.imageUrl}
-            height="400"
-            width="400"
             alt={product.alt}
-            className="h-full w-full object-cover md:h-auto md:w-auto md:rounded-xl"
+            width={500}
+            height={600} //
+            className="w-full h-auto object-cover md:rounded-xl"
           />
+          {/* <div className="">
+            <Image src={iconNext} width={30} height={30} alt="Next icon" className="bg-white border rounded-full absolute top-48 right-0 p-2" />
+            <Image src={iconPrevious} width={30} height={30} alt="Next icon" className="bg-white border rounded-full absolute top-48 left-0 p-2" />
+          </div> */}
+
           <div className="my-4 hidden justify-between md:flex">
             {product.thumbnails?.map((thumbnail, index) => (
               <Image
                 key={index}
-                width={30}
-                height={30}
+                width={50}
+                height={50}
                 src={thumbnail}
                 alt={product.alt}
                 className="w-1/5 rounded-xl"
