@@ -3,20 +3,37 @@ import Image from "next/image";
 import React from "react";
 import cartIcon from "../../public/assets/icon-cart.svg";
 import { content } from "../constants";
-import { ProductSectionType } from "../types";
-import iconNext from "../../public/assets/icon-next.svg";
-import iconPrevious from "../../public/assets/icon-previous.svg";
+import { ProductSectionType, ProductType } from "../types";
+import PaginationComponent from "./Pagination";
 
 const ProductSection = ({
-  onHandleNextProduct,
-  product,
+  products,
   counter,
   increaseCounter,
   decreaseCounter,
   addToCart,
+  currentPage = 1,
+  totalPages,
+  onPageChange,
 }: ProductSectionType) => {
-  const initialPrice = product.price / (1 - product.discount / 100);
-  
+  const validPage = Math.min(Math.max(currentPage, 1), totalPages);
+  const currentProductIndex = validPage - 1;
+  // Ensure products array is defined and has elements
+  if (!Array.isArray(products) || products.length === 0) {
+    return <div>No products available.</div>; // Handle case where products are not available
+  }
+
+  // Ensure current index is valid
+  if (currentProductIndex < 0 || currentProductIndex >= products.length) {
+    return <div>Invalid product index.</div>; // Handle invalid index
+  }
+  const currentProduct = products[currentProductIndex];
+  const initialPrice =
+    currentProduct.price / (1 - currentProduct.discount / 100);
+  console.log("Current", currentProduct);
+  if (!currentProduct) {
+    return <div>No product available.</div>; // Handle case where the product might not exist
+  }
   // Handle keyboard interaction
   const handleKeyDown = (e: React.KeyboardEvent, action: () => void) => {
     if (e.key === "Enter" || e.key === " ") {
@@ -24,27 +41,28 @@ const ProductSection = ({
       action();
     }
   };
+  const { imageUrl, alt } = currentProduct;
+
   return (
     <>
-      <div className="flex items-center justify-center">
-        <button
-          onClick={onHandleNextProduct}
-          aria-label="go to next product"
-          className="bg-paleOrange p-2 px-3 text-xs hover:bg-customOrange md:text-base"
-        >
-          Next Product
-        </button>
-      </div>
+      {/* <NextButton onClickNextButton={onHandleNextProduct} /> */}
+      {/* Pagination Component */}
+      <PaginationComponent
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={onPageChange}
+      />
       <article className="mx-auto flex w-full flex-col md:mx-auto md:max-w-3xl md:flex-row md:gap-10">
         {/*Product Image*/}
-
-        <figure className="w-full overflow-hidden md:h-auto md:w-1/2 md:rounded">
+        <div className="relative h-48 w-full overflow-hidden md:h-auto md:w-1/2 md:rounded">
           <Image
-            src={product.imageUrl}
-            alt={product.alt}
-            width={500}
-            height={600} //
-            className="w-full h-auto object-cover md:rounded-xl"
+            src={imageUrl}
+            alt={alt}
+            // width={500}
+            // height={600} //
+            fill
+            sizes="(max-width: 375px) 100vw, (max-width: 560px) 80vw, (max-width: 768px) 60vw, 33vw"
+            className="object-cover"
           />
           {/* <div className="">
             <Image src={iconNext} width={30} height={30} alt="Next icon" className="bg-white border rounded-full absolute top-48 right-0 p-2" />
@@ -52,37 +70,36 @@ const ProductSection = ({
           </div> */}
 
           <div className="my-4 hidden justify-between md:flex">
-            {product.thumbnails?.map((thumbnail, index) => (
+            {currentProduct.thumbnails?.map((thumbnail, index) => (
               <Image
                 key={index}
                 width={50}
                 height={50}
                 src={thumbnail}
-                alt={product.alt}
+                alt={currentProduct.alt}
                 className="w-1/5 rounded-xl"
                 style={{ objectFit: "cover" }}
               />
             ))}
           </div>
-        </figure>
+        </div>
         {/*Product Description*/}
-
         <section className="w-full p-6 md:w-1/2">
           <p className="ms:text-base text-xs font-semibold text-customGray">
             {content.header}
           </p>
           <h1 className="mb-4 mt-2 text-2xl font-bold text-customDarkBlue md:text-3xl">
-            {product.name}
+            {currentProduct.name}
           </h1>
 
           <p className="text-base tracking-tighter text-customGray md:my-6">
-            {product.description}
+            {currentProduct.description}
           </p>
           <div className="my-4 flex items-center justify-between text-customDarkBlue md:flex-col md:items-start">
             <p className="text-2xl font-bold">
-              ${product.price.toFixed(2)}
+              ${currentProduct.price.toFixed(2)}
               <span className="ml-4 rounded bg-customDarkBlue px-2 py-1 text-xs text-white">
-                {product.discount}%
+                {currentProduct.discount}%
               </span>
             </p>
             <p className="font-bold text-customGray line-through">

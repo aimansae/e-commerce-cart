@@ -11,13 +11,23 @@ export type ProductType = {
 };
 
 export type ProductSectionType = {
-  onHandleNextProduct: () => void;
-  product: ProductType;
+  // onHandleNextProduct: () => void;
+  products: ProductType[];
   counter: number;
   increaseCounter: () => void;
   decreaseCounter: () => void;
   addToCart: () => void;
+  // searchParams: { [key: string]: string | undefined };
+  currentPage?: number | undefined;
+  totalPages: number;
+  onPageChange: (page: number) => void;
 };
 export type CartType = {
   cart: ProductType[];
+};
+
+export type PaginationProps = {
+  currentPage: number;
+  totalPages: number;
+  onPageChange: (page: number) => void;
 };

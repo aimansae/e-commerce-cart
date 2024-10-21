@@ -16,17 +16,14 @@ import Cart from "./Cart";
 const Nav = ({ cart }: CartType) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showCart, setShowCart] = useState(false);
-  const cartRef = useRef<HTMLDivElement | null>(null);
+  const cartRef = useRef<HTMLButtonElement | null>(null);
   const mobileMenuRef = useRef<HTMLDivElement | null>(null);
 
-  // Toggle cart visibility
-  const handleCart = () => {
-    console.log("cart");
-    setShowCart(!showCart);
-  };
+
   // handle clicks outside mobile menu and cart
   const handleClickOutside = (e: MouseEvent) => {
-    if (cartRef.current && !cartRef.current.contains(e.target as Node)) {
+    if (cartRef.current && !cartRef.current.contains(e.target as Node)
+    ) {
       setShowCart(false);
     }
     if (
@@ -88,7 +85,7 @@ const Nav = ({ cart }: CartType) => {
                   className="mt-2 md:hidden"
                   onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 >
-                  <Image src={closeIcon} alt="" />
+                  <Image src={closeIcon} alt="Close Icon" />
                 </button>
                 {navLinks.map((link) => (
                   <Link key={link.href} href={link.href}>
@@ -101,7 +98,9 @@ const Nav = ({ cart }: CartType) => {
 
           {/* Cart and Avatar */}
           <div className="flex items-center gap-2 md:gap-4">
-            <button onClick={handleCart} aria-label="View Cart">
+            <button 
+      ref={cartRef}
+            onClick={()=>setShowCart(!showCart)} aria-label="View Cart">
               {cart.length > 0 ? (
                 <Image width={16} src={cartIconRed} alt="Cart" />
               ) : (
@@ -120,7 +119,7 @@ const Nav = ({ cart }: CartType) => {
         </nav>
       </header>
 
-      <div ref={cartRef}>{showCart && <Cart cart={cart}></Cart>}</div>
+      <div >{showCart && <Cart cart={cart}></Cart>}</div>
     </>
   );
 };

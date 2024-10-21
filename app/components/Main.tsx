@@ -8,8 +8,13 @@ import ProductSection from "./ProductSection";
 const Main = () => {
   const [counter, setCounter] = useState<number>(0);
   const [cart, setCart] = useState<ProductType[]>([]);
-  const [currentProductIndex, setCurrentProductIndex] = useState(0);
-  const product = products[currentProductIndex];
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const product = products[currentPage - 1];
+  const totalPages = Math.ceil(products.length);
+
+
+  //pagination 
+
   // url paths
 
   useEffect(() => {
@@ -18,11 +23,11 @@ const Main = () => {
     window.history.replaceState({}, "", newUrl);
   }, [product, counter]);
 
-  const handleNextProduct = () => {
-    setCurrentProductIndex((prevIndex) =>
-      prevIndex === products.length - 1 ? 0 : prevIndex + 1,
-    );
-  };
+  // const handleNextProduct = () => {
+  //   setCurrentProductIndex((prevIndex) =>
+  //     prevIndex === products.length - 1 ? 0 : prevIndex + 1,
+  //   );
+  // };
 
   const addToCart = () => {
     console.log("Cart clicked");
@@ -56,14 +61,26 @@ const Main = () => {
   }
 return prevCounter});
   };
-
+  const handlePageChange = (page: number) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+      // Fetch products based on the new page number
+    }
+  };
+  console.log(product)
 
   return (
     <main className="flex min-h-screen flex-col md:mx-auto">
       <Nav cart={cart} />
-      <ProductSection
-        onHandleNextProduct={handleNextProduct}
-        product={product}
+      
+      <ProductSection 
+              // onHandleNextProduct={handleNextProduct}
+
+      onPageChange={handlePageChange}
+        
+        currentPage={currentPage} 
+        totalPages={totalPages}
+        products={products}
         counter={counter}
         increaseCounter={increaseCounter}
         decreaseCounter={decreaseCounter}
