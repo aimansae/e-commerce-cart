@@ -4,6 +4,7 @@ A simple and responsive product showcase app built using Next.js, TypeScript, an
 
 This application features pagination, quantity control, and discount calculation.
 
+![AiIResponsive site Preview](/public/assets/amIResponsive-ecommerce.PNG)
 [Live Demo](https://e-commerce-cart-lac.vercel.app/?name=Fall%20limited%20edition%20white%20Sneakers&quantity=0) deployed on [Vercel](https://vercel.com/)
 
 ## Table of Contents
@@ -66,3 +67,4 @@ Visit http://localhost:3000 to see the app.
 
 ##  Credits
 Inspired by frontend mentor challenge [E-commerce product page](https://www.frontendmentor.io/solutions/ecommerce-product-page-z_I-TRCSk).
+- [Pexels](https://www.pexels.com/) for pictures

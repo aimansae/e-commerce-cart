@@ -41,7 +41,7 @@ const Nav = ({ cart }: CartType) => {
 
   return (
     <>
-      <header className="w-full border-b border-slate-200 px-4 py-5 md:px-8 md:py-6">
+      <header className="relative z-50 w-full border-b border-slate-200 px-4 py-5 md:px-8 md:py-6">
         <nav className="mx-auto flex max-w-4xl items-center justify-between">
           <div className="flex items-center">
             {/*Burger Menu*/}
