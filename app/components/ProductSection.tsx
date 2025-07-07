@@ -3,7 +3,7 @@ import Image from "next/image";
 import React from "react";
 import cartIcon from "../../public/assets/icon-cart.svg";
 import { content } from "../constants";
-import { ProductSectionType, ProductType } from "../types";
+import { ProductSectionType } from "../types";
 import PaginationComponent from "./Pagination";
 
 const ProductSection = ({
@@ -23,13 +23,12 @@ const ProductSection = ({
     return <div>No products available.</div>; // Handle case where products are not available
   }
 
-  // Ensure current index is valid
   if (currentProductIndex < 0 || currentProductIndex >= products.length) {
     return <div>Invalid product index.</div>; // Handle invalid index
   }
   const currentProduct = products[currentProductIndex];
-  const initialPrice =
-    currentProduct.price / (1 - currentProduct.discount / 100);
+  const discountedPrice =
+    currentProduct.price * (1 - currentProduct.discount / 100);
   console.log("Current", currentProduct);
   if (!currentProduct) {
     return <div>No product available.</div>; // Handle case where the product might not exist
@@ -45,31 +44,22 @@ const ProductSection = ({
 
   return (
     <>
-      {/* <NextButton onClickNextButton={onHandleNextProduct} /> */}
-      {/* Pagination Component */}
       <PaginationComponent
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={onPageChange}
       />
-      <article className="mx-auto flex w-full flex-col md:mx-auto md:max-w-3xl md:flex-row md:gap-10">
-        {/*Product Image*/}
-        <div className="relative h-48 w-full overflow-hidden md:h-auto md:w-1/2 md:rounded">
+      <article className="mx-auto flex w-full max-w-6xl flex-col items-center justify-center gap-6 px-4 sm:px-6 md:flex-row md:gap-6">
+        <div className="relative aspect-square w-full max-w-md overflow-hidden md:w-1/2 md:rounded">
           <Image
             src={imageUrl}
             alt={alt}
-            // width={500}
-            // height={600} //
             fill
             sizes="(max-width: 375px) 100vw, (max-width: 560px) 80vw, (max-width: 768px) 60vw, 33vw"
             className="object-cover"
           />
-          {/* <div className="">
-            <Image src={iconNext} width={30} height={30} alt="Next icon" className="bg-white border rounded-full absolute top-48 right-0 p-2" />
-            <Image src={iconPrevious} width={30} height={30} alt="Next icon" className="bg-white border rounded-full absolute top-48 left-0 p-2" />
-          </div> */}
 
-          <div className="my-4 hidden justify-between md:flex">
+          <div className="my-4 flex justify-center gap-4">
             {currentProduct.thumbnails?.map((thumbnail, index) => (
               <Image
                 key={index}
@@ -77,8 +67,7 @@ const ProductSection = ({
                 height={50}
                 src={thumbnail}
                 alt={currentProduct.alt}
-                className="w-1/5 rounded-xl"
-                style={{ objectFit: "cover" }}
+                className="h-16 w-16 cursor-pointer rounded-xl object-cover"
               />
             ))}
           </div>
@@ -96,14 +85,14 @@ const ProductSection = ({
             {currentProduct.description}
           </p>
           <div className="my-4 flex items-center justify-between text-customDarkBlue md:flex-col md:items-start">
-            <p className="text-2xl font-bold">
-              ${currentProduct.price.toFixed(2)}
+            <p className="text-xl font-bold">
+              ${discountedPrice.toFixed(2)}
               <span className="ml-4 rounded bg-customDarkBlue px-2 py-1 text-xs text-white">
                 {currentProduct.discount}%
               </span>
             </p>
             <p className="font-bold text-customGray line-through">
-              ${initialPrice.toFixed(2)}
+              ${currentProduct.price.toFixed(2)}
             </p>
           </div>
           <div className="cursor-pointer gap-4 md:flex">

@@ -12,8 +12,7 @@ const Main = () => {
   const product = products[currentPage - 1];
   const totalPages = Math.ceil(products.length);
 
-
-  //pagination 
+  //pagination
 
   // url paths
 
@@ -56,10 +55,11 @@ const Main = () => {
   };
   const decreaseCounter = () => {
     setCounter((prevCounter) => {
-      if(prevCounter>0){
-      return prevCounter - 1;
-  }
-return prevCounter});
+      if (prevCounter > 0) {
+        return prevCounter - 1;
+      }
+      return prevCounter;
+    });
   };
   const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) {
@@ -67,18 +67,17 @@ return prevCounter});
       // Fetch products based on the new page number
     }
   };
-  console.log(product)
+  console.log(product);
 
   return (
-    <main className="flex min-h-screen flex-col md:mx-auto">
+    <main className="flex flex-1 flex-col">
       <Nav cart={cart} />
-      
-      <ProductSection 
-              // onHandleNextProduct={handleNextProduct}
 
-      onPageChange={handlePageChange}
-        
-        currentPage={currentPage} 
+      <ProductSection
+        // onHandleNextProduct={handleNextProduct}
+
+        onPageChange={handlePageChange}
+        currentPage={currentPage}
         totalPages={totalPages}
         products={products}
         counter={counter}

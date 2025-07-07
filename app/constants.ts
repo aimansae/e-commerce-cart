@@ -30,7 +30,7 @@ export const products: ProductType[] = [
   {
     id: 1,
     name: "Fall limited edition white Sneakers",
-    discount: 50,
+    discount: 20,
     price: 125.0,
     quantity: 0,
     imageUrl: "/assets/image-product-1.jpg",
@@ -48,8 +48,8 @@ export const products: ProductType[] = [
   {
     id: 2,
     name: "Red limited edition Nike Sneakers",
-    discount: 20,
-    price: 155.0,
+    discount: 30,
+    price: 200.0,
     quantity: 0,
     imageUrl: "/assets/image-product-2.jpg",
     alt: "Red nike",

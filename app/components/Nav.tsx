@@ -19,11 +19,9 @@ const Nav = ({ cart }: CartType) => {
   const cartRef = useRef<HTMLButtonElement | null>(null);
   const mobileMenuRef = useRef<HTMLDivElement | null>(null);
 
-
   // handle clicks outside mobile menu and cart
   const handleClickOutside = (e: MouseEvent) => {
-    if (cartRef.current && !cartRef.current.contains(e.target as Node)
-    ) {
+    if (cartRef.current && !cartRef.current.contains(e.target as Node)) {
       setShowCart(false);
     }
     if (
@@ -43,7 +41,7 @@ const Nav = ({ cart }: CartType) => {
 
   return (
     <>
-      <header className="p-3 md:items-center md:border-b">
+      <header className="relative z-20 p-3 md:items-center md:border-b">
         <nav className="flex items-center justify-between text-xl md:items-center md:justify-around">
           <div className="flex items-center">
             {/*Burger Menu*/}
@@ -79,7 +77,7 @@ const Nav = ({ cart }: CartType) => {
             <div className="fixed inset-0 bg-black bg-opacity-65">
               <div
                 ref={mobileMenuRef}
-                className="absolute left-0 top-0 flex min-h-screen w-2/3 flex-col items-start gap-4 bg-white p-4 text-base"
+                className="absolute left-0 top-0 z-50 flex min-h-screen w-2/3 flex-col items-start gap-4 bg-white p-4 text-base"
               >
                 <button
                   className="mt-2 md:hidden"
@@ -87,20 +85,26 @@ const Nav = ({ cart }: CartType) => {
                 >
                   <Image src={closeIcon} alt="Close Icon" />
                 </button>
-                {navLinks.map((link) => (
-                  <Link key={link.href} href={link.href}>
-                    {link.label}
-                  </Link>
-                ))}
+                <ul className="flex w-full flex-col gap-2">
+                  {navLinks.map((link, i) => (
+                    <li key={i} className="w-full py-2 hover:bg-gray-200">
+                      <Link key={link.href} href={link.href}>
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
           )}
 
           {/* Cart and Avatar */}
           <div className="flex items-center gap-2 md:gap-4">
-            <button 
-      ref={cartRef}
-            onClick={()=>setShowCart(!showCart)} aria-label="View Cart">
+            <button
+              ref={cartRef}
+              onClick={() => setShowCart(!showCart)}
+              aria-label="View Cart"
+            >
               {cart.length > 0 ? (
                 <Image width={16} src={cartIconRed} alt="Cart" />
               ) : (
@@ -119,7 +123,7 @@ const Nav = ({ cart }: CartType) => {
         </nav>
       </header>
 
-      <div >{showCart && <Cart cart={cart}></Cart>}</div>
+      <div>{showCart && <Cart cart={cart}></Cart>}</div>
     </>
   );
 };

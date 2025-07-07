@@ -33,8 +33,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={kumbhSans.className}>{children}</body>
+    <html lang="en" className="h-full">
+      <body className={`flex min-h-screen flex-col ${kumbhSans.className}`}>
+        {children}
+      </body>
     </html>
   );
 }
