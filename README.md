@@ -4,7 +4,7 @@ A simple and responsive product showcase app built using Next.js, TypeScript, an
 
 This application features pagination, quantity control, and discount calculation.
 
-[Live Demo](https://your-vercel-link.vercel.app) deployed on [Vercel](https://vercel.com/)
+[Live Demo](https://e-commerce-cart-lac.vercel.app/?name=Fall%20limited%20edition%20white%20Sneakers&quantity=0) deployed on [Vercel](https://vercel.com/)
 
 ## Table of Contents
 
@@ -61,7 +61,8 @@ Visit http://localhost:3000 to see the app.
 - Integrate a real product API (like Stripe or Shopify).
 - Animate transitions between pages or products.
 - Add more product and optimize UI for medium + devices
-- Optimize pagination
+- Optimize pagination 
+- Add navigation pages, image zoom feature
 
 ##  Credits
 Inspired by frontend mentor challenge [E-commerce product page](https://www.frontendmentor.io/solutions/ecommerce-product-page-z_I-TRCSk).

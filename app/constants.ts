@@ -47,20 +47,20 @@ export const products: ProductType[] = [
   },
   {
     id: 2,
-    name: "Red limited edition Nike Sneakers",
+    name: "White limited edition AllStars Sneakers",
     discount: 30,
     price: 200.0,
     quantity: 0,
-    imageUrl: "/assets/image-product-2.jpg",
+    imageUrl: "/assets/allStars.jpg",
     alt: "Red nike",
-    description: `These nike sneakers are your perfect casual wear companion.
+    description: `These sneakers are your perfect casual wear companion.
           Featuring a durable rubber outer sole, they will withstand everything
           the weather can offer.`,
     thumbnails: [
-      "/assets/image-product-1-thumbnail.jpg",
-      "/assets/image-product-2-thumbnail.jpg",
-      "/assets/image-product-3-thumbnail.jpg",
-      "/assets/image-product-4-thumbnail.jpg",
+      "/assets/allStars.jpg",
+      "/assets/allStars-thumbnail1.jpg",
+      "/assets/allStars-thumbnail2.jpg",
+      "/assets/allStars-thumbnail3.jpg",
     ],
   },
 ];

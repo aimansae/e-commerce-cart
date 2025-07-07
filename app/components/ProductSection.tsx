@@ -50,15 +50,16 @@ const ProductSection = ({
         onPageChange={onPageChange}
       />
       <article className="mx-auto flex w-full max-w-6xl flex-col items-center justify-center gap-6 px-4 sm:px-6 md:flex-row md:gap-6">
-        <div className="relative aspect-square w-full max-w-md overflow-hidden md:w-1/2 md:rounded">
-          <Image
-            src={imageUrl}
-            alt={alt}
-            fill
-            sizes="(max-width: 375px) 100vw, (max-width: 560px) 80vw, (max-width: 768px) 60vw, 33vw"
-            className="object-cover"
-          />
-
+        <div>
+          <div className="relative aspect-square w-full overflow-hidden md:rounded">
+            <Image
+              src={imageUrl}
+              alt={alt}
+              fill
+              sizes="(max-width: 375px) 100vw, (max-width: 560px) 80vw, (max-width: 768px) 60vw, 33vw"
+              className="object-fill"
+            />
+          </div>
           <div className="my-4 flex justify-center gap-4">
             {currentProduct.thumbnails?.map((thumbnail, index) => (
               <Image
@@ -74,7 +75,7 @@ const ProductSection = ({
         </div>
         {/*Product Description*/}
         <section className="w-full p-6 md:w-1/2">
-          <p className="ms:text-base text-xs font-semibold text-customGray">
+          <p className="text-xs font-semibold text-customGray md:text-base">
             {content.header}
           </p>
           <h1 className="mb-4 mt-2 text-2xl font-bold text-customDarkBlue md:text-3xl">
