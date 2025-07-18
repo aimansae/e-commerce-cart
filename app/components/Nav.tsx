@@ -41,8 +41,9 @@ const Nav = ({ cart }: CartType) => {
     <>
       <header className="relative z-50 w-full border-b border-slate-200 px-4 py-5 md:px-8 md:py-6">
         <nav className="mx-auto flex max-w-4xl items-center justify-between">
+          {/* Left Section */}
           <div className="flex items-center">
-            {/*Burger Menu*/}
+            {/* Burger Menu */}
             <button
               aria-label="Toggle mobile menu"
               className="mr-2 md:hidden"
@@ -50,7 +51,8 @@ const Nav = ({ cart }: CartType) => {
             >
               <Image src={iconMenu} alt="Menu Icon" />
             </button>
-            {/*Logo*/}
+
+            {/* Logo */}
             <Link
               href="/"
               className="font-extrabold tracking-wider text-customDarkBlue md:text-3xl"
@@ -58,7 +60,8 @@ const Nav = ({ cart }: CartType) => {
               <Image src={logo} alt="Logo" className="w-28 md:w-auto" />
             </Link>
           </div>
-          {/*Nav Links Desktop*/}
+
+          {/* Nav Links Desktop */}
           <div className="hidden text-base text-customDarkBlue md:flex md:justify-between md:gap-4 md:text-customGray">
             {navLinks.map((link) => (
               <Link
@@ -70,66 +73,65 @@ const Nav = ({ cart }: CartType) => {
               </Link>
             ))}
           </div>
-          {/* Mobile Menu */}
-          {isMobileMenuOpen && (
-            <div className="fixed inset-0 bg-black bg-opacity-65">
-              <div
-                ref={mobileMenuRef}
-                className="absolute left-0 top-0 z-50 flex min-h-screen w-2/3 flex-col items-start gap-4 bg-white p-4 text-base"
-              >
-                <button
-                  className="mt-2 md:hidden"
-                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                >
-                  <Image src={closeIcon} alt="Close Icon" />
-                </button>
-                <ul className="flex w-full flex-col gap-2">
-                  {navLinks.map((link, i) => (
-                    <li key={i} className="w-full py-2 hover:bg-gray-200">
-                      <Link key={link.href} href={link.href}>
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          )}
-          {/* Cart and Avatar */}
-          <div className="relative flex items-center gap-2 md:gap-4">
-            <div className="relative">
-              <button
-                ref={cartRef}
-                onClick={() => setShowCart(!showCart)}
-                aria-label="View Cart"
-              >
-                <Image width={16} src={cartIcon} alt="Cart" />
-                {cart.length > 0 && (
-                  <div className="absolute left-2 top-0">
-                    <span className="rounded-full border bg-red-500/80 px-1 text-[8px]">
-                      {totalQuantity}
-                    </span>
-                  </div>
-                )}{" "}
-              </button>
-              {/* Cart dropdown - absolutely positioned */}
-              {showCart && (
-                <div className="absolute right-0 top-8 z-50">
-                  <Cart cart={cart} />
-                </div>
-              )}
-            </div>
 
+          {/* Right Section: Cart + Avatar */}
+          <div className="relative flex items-center gap-2 md:gap-4">
+            <button
+              ref={cartRef}
+              onClick={() => setShowCart(!showCart)}
+              aria-label="View Cart"
+              className="relative"
+            >
+              <Image width={20} src={cartIcon} alt="Cart" />
+              {totalQuantity > 0 && (
+                <span className="absolute -top-2 left-3 rounded-full bg-red-500 px-1 text-[10px] text-white">
+                  {totalQuantity}
+                </span>
+              )}
+            </button>
+
+            {/* Avatar */}
             <Link href="/">
               <Image
                 src={avatar}
-                width={20}
+                width={24}
                 alt="User Profile Avatar"
                 className="rounded-full transition duration-200 hover:border hover:border-customOrange md:w-7"
               />
             </Link>
           </div>
         </nav>
+
+        {/* Mobile Menu */}
+        {isMobileMenuOpen && (
+          <div className="fixed inset-0 bg-black bg-opacity-65">
+            <div
+              ref={mobileMenuRef}
+              className="absolute left-0 top-0 z-50 flex min-h-screen w-2/3 flex-col items-start gap-4 bg-white p-4 text-base"
+            >
+              <button
+                className="mt-2 md:hidden"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                <Image src={closeIcon} alt="Close Icon" />
+              </button>
+              <ul className="flex w-full flex-col gap-2">
+                {navLinks.map((link, i) => (
+                  <li key={i} className="w-full py-2 hover:bg-gray-200">
+                    <Link href={link.href}>{link.label}</Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        )}
+
+        {/* Cart Dropdown (relative to header) */}
+        {showCart && (
+          <div className="absolute right-4 top-full z-40 mt-2 border">
+            <Cart cart={cart} />
+          </div>
+        )}
       </header>
     </>
   );
