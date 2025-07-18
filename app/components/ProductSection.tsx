@@ -49,60 +49,78 @@ const ProductSection = ({
         totalPages={totalPages}
         onPageChange={onPageChange}
       />
-      <article className="mx-auto flex w-full max-w-6xl flex-col items-center justify-center gap-6 px-4 sm:px-6 md:flex-row md:gap-6">
-        <div>
-          <div className="relative aspect-square w-full overflow-hidden md:rounded">
+      <article className="mx-auto flex w-full max-w-6xl flex-col items-center justify-center gap-6 px-4 sm:px-6 md:flex-row md:gap-8">
+        {/* Image & Thumbnails */}
+        <div className="flex w-full max-w-md flex-col items-center gap-4 p-2 md:w-1/2">
+          {/* Main Image */}
+          <div className="relative aspect-square w-full overflow-hidden rounded-xl shadow-sm">
             <Image
               src={imageUrl}
               alt={alt}
               fill
-              sizes="(max-width: 375px) 100vw, (max-width: 560px) 80vw, (max-width: 768px) 60vw, 33vw"
-              className="object-fill"
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-cover transition-transform duration-300 ease-in-out hover:scale-105"
+              priority
             />
           </div>
-          <div className="my-4 flex justify-center gap-4">
+
+          {/* Thumbnails */}
+          <div className="grid w-full grid-cols-2 gap-2 sm:grid-cols-4">
             {currentProduct.thumbnails?.map((thumbnail, index) => (
-              <Image
+              <div
                 key={index}
-                width={50}
-                height={50}
-                src={thumbnail}
-                alt={currentProduct.alt}
-                className="h-16 w-16 cursor-pointer rounded-xl object-cover"
-              />
+                className="relative aspect-square cursor-pointer overflow-hidden rounded-lg border border-transparent transition-all duration-300 hover:border-customOrange hover:shadow-sm"
+              >
+                <Image
+                  src={thumbnail}
+                  alt={currentProduct.alt}
+                  fill
+                  sizes="(max-width: 768px) 50vw, 25vw"
+                  className="object-cover transition-transform duration-300 hover:scale-105"
+                />
+              </div>
             ))}
           </div>
         </div>
         {/*Product Description*/}
-        <section className="w-full p-6 md:w-1/2">
+        <section className="flex w-full flex-col gap-4 p-6 md:w-1/2">
+          {/* Small header */}
           <p className="text-xs font-semibold text-customGray md:text-base">
             {content.header}
           </p>
-          <h1 className="mb-4 mt-2 text-2xl font-bold text-customDarkBlue md:text-3xl">
+
+          {/* Product Name */}
+          <h1 className="text-2xl font-bold text-customDarkBlue md:text-3xl">
             {currentProduct.name}
           </h1>
 
-          <p className="text-base tracking-tighter text-customGray md:my-6">
+          {/* Description */}
+          <p className="text-sm leading-relaxed text-customGray md:my-4 md:text-base">
             {currentProduct.description}
           </p>
-          <div className="my-4 flex items-center justify-between text-customDarkBlue md:flex-col md:items-start">
-            <p className="text-xl font-bold">
-              ${discountedPrice.toFixed(2)}
-              <span className="ml-4 rounded bg-customDarkBlue px-2 py-1 text-xs text-white">
+
+          {/* Price + Discount */}
+          <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between md:gap-0">
+            <div className="flex items-center gap-3 text-customDarkBlue">
+              <p className="text-xl font-bold">${discountedPrice.toFixed(2)}</p>
+              <span className="rounded bg-customDarkBlue px-2 py-1 text-xs text-white">
                 {currentProduct.discount}%
               </span>
-            </p>
-            <p className="font-bold text-customGray line-through">
+            </div>
+            <p className="text-sm font-semibold text-customGray line-through">
               ${currentProduct.price.toFixed(2)}
             </p>
           </div>
-          <div className="cursor-pointer gap-4 md:flex">
-            <div className="my-4 flex items-end justify-between rounded bg-customLightGray px-4 py-2 font-bold text-customOrange md:w-3/6">
+
+          {/* Quantity + Add to Cart */}
+          <div className="mt-4 flex flex-col gap-4 md:flex-row md:items-center">
+            {/* Counter */}
+            <div className="flex w-full items-center justify-between rounded bg-customLightGray px-4 py-2 font-bold text-customOrange md:w-1/3">
               <button
                 onClick={decreaseCounter}
                 onKeyDown={(e) => handleKeyDown(e, decreaseCounter)}
                 aria-label="decrease quantity"
-                className="cursor-pointer text-3xl"
+                className="text-2xl transition-transform hover:scale-125"
               >
                 -
               </button>
@@ -110,29 +128,25 @@ const ProductSection = ({
               <button
                 onClick={increaseCounter}
                 aria-label="increase quantity"
-                className="cursor-pointer text-3xl"
+                className="text-2xl transition-transform hover:scale-125"
               >
                 +
               </button>
             </div>
-            <div
-              className={`my-4 flex items-center justify-center rounded bg-customOrange px-4 py-3 font-bold text-customDarkBlue md:w-2/3 ${counter === 0 ? "cursor-not-allowed bg-paleOrange" : "bg-customOrange"}`}
+
+            {/* Add to Cart Button */}
+            <button
+              disabled={counter === 0}
+              className={`flex w-full items-center justify-center gap-2 rounded px-4 py-3 text-base font-bold transition-all md:w-2/3 ${
+                counter === 0
+                  ? "cursor-not-allowed bg-paleOrange text-customDarkBlue"
+                  : "bg-customOrange text-customDarkBlue hover:brightness-95"
+              }`}
+              onClick={addToCart}
             >
-              <button className="flex items-center space-x-2">
-                <Image
-                  src={cartIcon}
-                  alt="Cart Icon"
-                  width={18}
-                  className="text-black"
-                />
-                <span
-                  className="text-xl font-bold md:text-base"
-                  onClick={addToCart}
-                >
-                  Add to cart
-                </span>
-              </button>
-            </div>
+              <Image src={cartIcon} alt="Cart Icon" width={18} />
+              <span>Add to cart</span>
+            </button>
           </div>
         </section>
       </article>

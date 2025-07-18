@@ -22,12 +22,6 @@ const Main = () => {
     window.history.replaceState({}, "", newUrl);
   }, [product, counter]);
 
-  // const handleNextProduct = () => {
-  //   setCurrentProductIndex((prevIndex) =>
-  //     prevIndex === products.length - 1 ? 0 : prevIndex + 1,
-  //   );
-  // };
-
   const addToCart = () => {
     console.log("Cart clicked");
 
@@ -74,8 +68,6 @@ const Main = () => {
       <Nav cart={cart} />
 
       <ProductSection
-        // onHandleNextProduct={handleNextProduct}
-
         onPageChange={handlePageChange}
         currentPage={currentPage}
         totalPages={totalPages}

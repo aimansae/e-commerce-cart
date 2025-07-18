@@ -38,7 +38,7 @@ const Nav = ({ cart }: CartType) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-
+  const totalQuantity = cart.reduce((acc, item) => acc + item.quantity, 0);
   return (
     <>
       <header className="relative z-50 w-full border-b border-slate-200 px-4 py-5 md:px-8 md:py-6">
@@ -97,20 +97,31 @@ const Nav = ({ cart }: CartType) => {
               </div>
             </div>
           )}
-
           {/* Cart and Avatar */}
-          <div className="flex items-center gap-2 md:gap-4">
-            <button
-              ref={cartRef}
-              onClick={() => setShowCart(!showCart)}
-              aria-label="View Cart"
-            >
-              {cart.length > 0 ? (
-                <Image width={16} src={cartIconRed} alt="Cart" />
-              ) : (
+          <div className="relative flex items-center gap-2 md:gap-4">
+            <div className="relative">
+              <button
+                ref={cartRef}
+                onClick={() => setShowCart(!showCart)}
+                aria-label="View Cart"
+              >
                 <Image width={16} src={cartIcon} alt="Cart" />
+                {cart.length > 0 && (
+                  <div className="absolute left-2 top-0">
+                    <span className="rounded-full border bg-red-500/80 px-1 text-[8px]">
+                      {totalQuantity}
+                    </span>
+                  </div>
+                )}{" "}
+              </button>
+              {/* Cart dropdown - absolutely positioned */}
+              {showCart && (
+                <div className="absolute right-0 top-8 z-50">
+                  <Cart cart={cart} />
+                </div>
               )}
-            </button>
+            </div>
+
             <Link href="/">
               <Image
                 src={avatar}
@@ -122,8 +133,6 @@ const Nav = ({ cart }: CartType) => {
           </div>
         </nav>
       </header>
-
-      <div>{showCart && <Cart cart={cart}></Cart>}</div>
     </>
   );
 };
