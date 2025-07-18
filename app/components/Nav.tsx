@@ -4,8 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import iconMenu from "../../public/assets/icon-menu.svg";
 import cartIcon from "../../public/assets/icon-cart.svg";
-import cartIconRed from "../../public/assets/icon-cart-red.svg";
-
 import closeIcon from "../../public/assets/icon-close.svg";
 import logo from "../../public/assets/logo.svg";
 import avatar from "../../public/assets/image-avatar.png";
